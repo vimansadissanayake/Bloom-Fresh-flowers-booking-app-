@@ -1,0 +1,2439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bloom · Fresh Flower Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #C84B6E;
+      --primary-dark: #A83A58;
+      --primary-light: #F5D0DA;
+      --primary-soft: #FDF2F5;
+      --secondary: #5B8C6F;
+      --secondary-dark: #3F6B4F;
+      --secondary-light: #D4E8D9;
+      --accent: #E8A838;
+      --accent-light: #FCE9C4;
+      --bg: #FDF8F4;
+      --bg-warm: #F9F0EA;
+      --text: #2A2422;
+      --text-secondary: #6B5F58;
+      --text-muted: #9B8E86;
+      --white: #FFFFFF;
+      --gray-100: #F5F0EB;
+      --gray-200: #E8E0D8;
+      --gray-300: #D4C9BF;
+      --shadow-sm: 0 2px 8px rgba(42, 36, 34, 0.04);
+      --shadow-md: 0 8px 24px rgba(42, 36, 34, 0.07);
+      --shadow-lg: 0 16px 40px rgba(42, 36, 34, 0.10);
+      --shadow-primary: 0 8px 24px rgba(200, 75, 110, 0.25);
+      --radius-xs: 8px;
+      --radius-sm: 14px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-full: 50px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: linear-gradient(145deg, #E8DDD5, #D9CCC2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .phone-frame {
+      width: 390px;
+      height: 844px;
+      background: var(--bg);
+      border-radius: 52px;
+      box-shadow: 0 40px 80px rgba(42, 36, 34, 0.25), 0 0 0 10px #FFFFFF, 0 0 0 14px #E8E0D8;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .status-bar {
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 28px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+
+    .status-bar .time { font-weight: 700; }
+    .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+    .status-bar .icons i { font-size: 12px; }
+
+    .app-screen {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 8px 20px 10px 20px;
+      scrollbar-width: none;
+    }
+    .app-screen::-webkit-scrollbar { display: none; }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    h1 { font-size: 34px; line-height: 1.15; }
+    h2 { font-size: 26px; margin-bottom: 4px; }
+    h3 { font-size: 19px; margin-bottom: 8px; font-weight: 700; }
+    h4 { font-size: 15px; margin-bottom: 8px; font-weight: 700; }
+
+    .body-text { font-size: 14px; line-height: 1.55; color: var(--text-secondary); }
+    .caption { font-size: 12px; color: var(--text-muted); letter-spacing: 0.2px; }
+
+    .flex { display: flex; align-items: center; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .flex-col { display: flex; flex-direction: column; }
+    .gap-4 { gap: 4px; }
+    .gap-6 { gap: 6px; }
+    .gap-8 { gap: 8px; }
+    .gap-10 { gap: 10px; }
+    .gap-12 { gap: 12px; }
+    .gap-16 { gap: 16px; }
+    .mt-4 { margin-top: 4px; }
+    .mt-8 { margin-top: 8px; }
+    .mt-12 { margin-top: 12px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-20 { margin-top: 20px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .mb-4 { margin-bottom: 4px; }
+    .mb-8 { margin-bottom: 8px; }
+    .mb-10 { margin-bottom: 10px; }
+    .mb-12 { margin-bottom: 12px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-20 { margin-bottom: 20px; }
+    .mb-24 { margin-bottom: 24px; }
+    .text-center { text-align: center; }
+    .text-primary { color: var(--primary); }
+    .text-secondary { color: var(--secondary); }
+    .text-muted { color: var(--text-muted); }
+    .font-bold { font-weight: 700; }
+    .w-100 { width: 100%; }
+
+    .btn {
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 15px 28px;
+      font-weight: 600;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      box-shadow: var(--shadow-primary);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 10px 30px rgba(200, 75, 110, 0.35);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(91, 140, 111, 0.25);
+    }
+    .btn-secondary:hover {
+      box-shadow: 0 10px 30px rgba(91, 140, 111, 0.35);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: var(--white);
+      border: 1.5px solid var(--primary-light);
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+    .btn-soft {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: none;
+    }
+    .btn-soft:hover { background: var(--primary-light); }
+    .btn-sm { padding: 10px 18px; font-size: 13px; }
+    .btn-block { width: 100%; }
+    .btn-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      color: var(--text);
+      font-size: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-icon:hover {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: var(--transition);
+    }
+    .card:hover { box-shadow: var(--shadow-md); }
+
+    .img-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .img-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .img-card .img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .img-card .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .img-card:hover .img-wrap img { transform: scale(1.05); }
+    .img-card .img-wrap .heart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2;
+    }
+    .img-card .img-wrap .heart:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: scale(1.1);
+    }
+    .img-card .info { padding: 12px 14px 14px; }
+    .img-card .name { font-weight: 700; font-size: 14px; margin-bottom: 3px; color: var(--text); }
+    .img-card .price { font-weight: 700; color: var(--primary); font-size: 16px; }
+    .img-card .rating { display: flex; align-items: center; gap: 4px; margin-top: 4px; font-size: 11px; color: var(--text-muted); }
+    .img-card .rating i { color: var(--accent); font-size: 10px; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .section-header h3 { font-size: 19px; margin-bottom: 0; }
+    .section-header .see-all {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition);
+    }
+    .section-header .see-all:hover { gap: 8px; }
+
+    .search-bar {
+      background: var(--white);
+      border-radius: var(--radius-full);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      transition: var(--transition);
+    }
+    .search-bar:focus-within {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px rgba(200, 75, 110, 0.08);
+    }
+    .search-bar i { color: var(--primary); font-size: 16px; }
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      width: 100%;
+      color: var(--text);
+    }
+    .search-bar input::placeholder { color: var(--text-muted); }
+
+    .horizontal-scroll {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+    .occasion-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .occasion-row::-webkit-scrollbar { display: none; }
+
+    .occasion-chip {
+      background: var(--white);
+      border-radius: var(--radius-full);
+      padding: 11px 20px;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text);
+    }
+    .occasion-chip:hover {
+      border-color: var(--primary-light);
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+    .occasion-chip.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      border-color: transparent;
+      box-shadow: var(--shadow-primary);
+    }
+    .occasion-chip i { font-size: 14px; }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 8px;
+      scrollbar-width: none;
+    }
+    .filter-row::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      background: var(--white);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--gray-200);
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-secondary);
+    }
+    .filter-chip.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(200, 75, 110, 0.2);
+    }
+    .filter-chip:hover:not(.active) {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .product-grid .img-card .img-wrap { height: 150px; }
+
+    .detail-image {
+      height: 260px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+    .detail-image img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-image .back-btn {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: none;
+      z-index: 2;
+    }
+    .detail-image .back-btn:hover { background: var(--white); transform: scale(1.05); }
+
+    .size-selector { display: flex; gap: 10px; }
+    .size-option {
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-secondary);
+      background: var(--white);
+    }
+    .size-option.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+      box-shadow: 0 4px 12px rgba(200, 75, 110, 0.1);
+    }
+    .size-option:hover:not(.selected) {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .color-swatch {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      position: relative;
+    }
+    .color-swatch:hover { transform: scale(1.1); }
+    .color-swatch.selected {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .addon-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .addon-option:last-child { border-bottom: none; }
+    .addon-option:hover { padding-left: 4px; }
+    .addon-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      border: 2px solid var(--gray-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      font-size: 12px;
+      flex-shrink: 0;
+      transition: var(--transition);
+      background: var(--white);
+    }
+    .addon-check.checked {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-color: var(--primary);
+      color: white;
+    }
+    .addon-option .addon-label { font-size: 14px; font-weight: 500; color: var(--text); }
+    .addon-option .addon-price { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--primary); }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .summary-row.total {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--text);
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 2px solid var(--gray-100);
+    }
+    .summary-row .value { font-weight: 600; color: var(--text); }
+
+    .tracking-steps { display: flex; flex-direction: column; gap: 24px; margin: 20px 0; }
+    .step { display: flex; gap: 16px; align-items: flex-start; position: relative; }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 40px;
+      width: 2px;
+      height: calc(100% - 8px);
+      background: var(--gray-200);
+    }
+    .step.done:not(:last-child)::after { background: var(--secondary); }
+    .step-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      transition: var(--transition);
+    }
+    .step-icon.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 12px rgba(200, 75, 110, 0.3);
+    }
+    .step-icon.done {
+      background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+      color: white;
+    }
+    .step-content h4 { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 2px; color: var(--text); }
+    .step-content p { font-size: 12px; color: var(--text-muted); }
+
+    .bottom-nav {
+      background: var(--white);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 8px 20px;
+      border-top: 1px solid var(--gray-100);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 -4px 20px rgba(42, 36, 34, 0.04);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 6px 14px;
+      border-radius: 12px;
+      position: relative;
+    }
+    .nav-item:hover { color: var(--primary); background: var(--primary-soft); }
+    .nav-item.active { color: var(--primary); }
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+    .nav-item i { font-size: 19px; pointer-events: none; transition: var(--transition); }
+    .nav-item.active i { transform: translateY(-1px); }
+    .nav-item span { pointer-events: none; }
+
+    .screen-content { display: none; animation: fadeSlide 0.3s ease; }
+    .screen-content.active-screen { display: block; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #FCE9E3 0%, #F5D0DA 50%, #E8C4D0 100%);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .hero-banner:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .hero-banner::after {
+      content: '🌸';
+      position: absolute;
+      right: -10px;
+      bottom: -20px;
+      font-size: 100px;
+      opacity: 0.15;
+      transform: rotate(-15deg);
+    }
+    .hero-banner .badge {
+      background: var(--white);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-banner h3 { font-size: 22px; margin-bottom: 4px; color: var(--text); }
+    .hero-banner p { font-size: 13px; color: var(--text-secondary); }
+    .hero-banner .arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 16px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .hero-banner .arrow:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
+
+    .order-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      margin-bottom: 14px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .order-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .order-card .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .order-card .order-id { font-weight: 700; font-size: 14px; color: var(--text); }
+    .status-badge { font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: var(--radius-full); }
+    .status-badge.in-progress { background: var(--primary-soft); color: var(--primary); }
+    .status-badge.delivered { background: var(--secondary-light); color: var(--secondary-dark); }
+    .order-card .order-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .order-card .order-item img { width: 50px; height: 50px; border-radius: var(--radius-sm); object-fit: cover; }
+    .order-card .order-item .item-info { flex: 1; }
+    .order-card .order-item .item-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .order-card .order-item .item-size { font-size: 12px; color: var(--text-muted); }
+    .order-card .order-footer { display: flex; justify-content: space-between; align-items: center; }
+    .order-card .order-total { font-weight: 700; font-size: 16px; color: var(--primary); }
+
+    .profile-menu {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .profile-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .profile-menu-item:last-child { border-bottom: none; }
+    .profile-menu-item:hover { background: var(--primary-soft); padding-left: 22px; }
+    .profile-menu-item i:first-child { color: var(--primary); width: 20px; font-size: 16px; }
+    .profile-menu-item .menu-text { font-weight: 600; font-size: 14px; color: var(--text); }
+    .profile-menu-item .chevron { margin-left: auto; color: var(--gray-300); font-size: 12px; }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 26px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(200, 75, 110, 0.25);
+    }
+
+    .alert {
+      background: linear-gradient(135deg, #FFF8E8, #FEF3D4);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .alert i { color: var(--accent); font-size: 18px; margin-top: 2px; }
+    .alert .alert-title { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+    .alert .alert-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+    .message-input {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      border: 1.5px solid var(--gray-200);
+      transition: var(--transition);
+    }
+    .message-input:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(200, 75, 110, 0.08);
+    }
+    .message-input input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      width: 100%;
+      color: var(--text);
+    }
+
+    .confirmation-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 12px 32px rgba(91, 140, 111, 0.3);
+    }
+    .confirmation-icon i { font-size: 40px; color: var(--white); }
+
+    .empty-state { text-align: center; padding: 40px 20px; }
+    .empty-state i { font-size: 48px; color: var(--gray-300); margin-bottom: 16px; }
+
+    .divider { height: 1px; background: var(--gray-100); margin: 20px 0; }
+
+    .stars { display: flex; gap: 2px; color: var(--accent); font-size: 12px; }
+
+    .floating-cta {
+      position: sticky;
+      bottom: 0;
+      background: linear-gradient(to top, var(--bg) 60%, transparent);
+      padding: 16px 0 8px;
+      margin-top: 16px;
+    }
+
+    .img-fallback {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #F2E3DA, #E8D5C8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 32px;
+    }
+
+    .notif-item {
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .notif-item:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+    .notif-item.unread { border-left: 3px solid var(--primary); }
+    .notif-item .notif-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    .notif-item .notif-icon.order { background: var(--primary-soft); color: var(--primary); }
+    .notif-item .notif-icon.promo { background: var(--accent-light); color: #B8860B; }
+    .notif-item .notif-icon.delivery { background: var(--secondary-light); color: var(--secondary-dark); }
+    .notif-item .notif-icon.reminder { background: #E8E0F5; color: #7B5EA7; }
+    .notif-item .notif-content { flex: 1; }
+    .notif-item .notif-title { font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 3px; }
+    .notif-item .notif-text { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+    .notif-item .notif-time { font-size: 11px; color: var(--text-muted); margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+    .notif-item .notif-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      position: absolute;
+      top: 18px;
+      right: 18px;
+    }
+
+    .address-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .address-card:hover { box-shadow: var(--shadow-md); }
+    .address-card.default { border: 1.5px solid var(--primary); }
+    .address-card .addr-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .address-card .addr-name { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+    .address-card .addr-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .address-card .addr-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .address-card .addr-actions span { font-size: 12px; font-weight: 600; color: var(--primary); cursor: pointer; }
+
+    .payment-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .payment-card:hover { box-shadow: var(--shadow-md); }
+    .payment-card.selected { border: 1.5px solid var(--primary); }
+    .payment-card .pay-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+    }
+    .payment-card .pay-info { flex: 1; }
+    .payment-card .pay-name { font-weight: 700; font-size: 14px; color: var(--text); }
+    .payment-card .pay-detail { font-size: 12px; color: var(--text-muted); }
+    .payment-card .pay-check { color: var(--primary); font-size: 18px; }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-row:hover { background: var(--primary-soft); }
+    .settings-row .settings-label { font-weight: 600; font-size: 14px; color: var(--text); }
+    .settings-row .settings-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .toggle {
+      width: 46px;
+      height: 26px;
+      border-radius: 13px;
+      background: var(--gray-200);
+      position: relative;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .toggle.on { background: var(--primary); }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      top: 3px;
+      left: 3px;
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .toggle.on::after { left: 23px; }
+
+    .search-suggestion {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .search-suggestion:hover { padding-left: 6px; }
+    .search-suggestion i { color: var(--primary); font-size: 16px; width: 20px; }
+    .search-suggestion .sug-text { font-size: 14px; color: var(--text); }
+    .search-suggestion .sug-tag { margin-left: auto; font-size: 11px; color: var(--text-muted); }
+
+    .support-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .support-option:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .support-option .sup-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .support-option .sup-title { font-weight: 700; font-size: 14px; color: var(--text); }
+    .support-option .sup-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .support-option .sup-chevron { margin-left: auto; color: var(--gray-300); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </div>
+    </div>
+
+    <div class="app-screen" id="appScreen">
+
+      <!-- ==================== HOME ==================== -->
+      <div id="screen-home" class="screen-content active-screen">
+        <div class="flex-between mb-20">
+          <div>
+            <p class="caption" style="margin-bottom: 2px;">Good morning ✨</p>
+            <h2 style="font-size: 28px;">Bloom</h2>
+          </div>
+          <div class="flex gap-8">
+            <div class="btn-icon" style="position: relative;" onclick="goTo('notifications')">
+              <i class="fas fa-bell"></i>
+              <span style="position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; border-radius: 50%; background: var(--primary);"></span>
+            </div>
+            <div class="btn-icon" onclick="goTo('profile')">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-bar mb-20" onclick="goTo('search')">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search flowers, occasions..." readonly style="cursor: pointer;">
+        </div>
+
+        <div class="section-header">
+          <h3>Shop by occasion</h3>
+          <span class="see-all" onclick="goTo('explore')">See all <i class="fas fa-arrow-right" style="font-size: 10px;"></i></span>
+        </div>
+        <div class="occasion-row mb-24">
+          <div class="occasion-chip active" onclick="switchToOccasion('Birthday')">
+            <i class="fas fa-birthday-cake"></i> Birthday
+          </div>
+          <div class="occasion-chip" onclick="switchToOccasion('Anniversary')">
+            <i class="fas fa-heart"></i> Anniversary
+          </div>
+          <div class="occasion-chip" onclick="switchToOccasion('Thank You')">
+            <i class="fas fa-thumbs-up"></i> Thank You
+          </div>
+          <div class="occasion-chip" onclick="switchToOccasion('Congratulations')">
+            <i class="fas fa-trophy"></i> Congrats
+          </div>
+          <div class="occasion-chip" onclick="switchToOccasion('Sympathy')">
+            <i class="fas fa-dove"></i> Sympathy
+          </div>
+        </div>
+
+        <div class="hero-banner mb-24" onclick="goTo('explore')">
+          <div>
+            <span class="badge">🌸 Seasonal</span>
+            <h3>Spring Whisper</h3>
+            <p>Up to 25% off fresh blooms</p>
+          </div>
+          <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+
+        <div class="section-header">
+          <h3>Featured bouquets</h3>
+          <span class="see-all" onclick="goTo('explore')">See all <i class="fas fa-arrow-right" style="font-size: 10px;"></i></span>
+        </div>
+        <div class="horizontal-scroll mb-24">
+          <div class="img-card" style="width: 160px;" onclick="showProductDetail('Blush Elegance', 49.90, 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop" alt="Blush Elegance" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-seedling\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Blush Elegance</div>
+              <div class="flex-between">
+                <div class="price">$49.90</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" style="width: 160px;" onclick="showProductDetail('Garden Whisper', 62.00, 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=400&fit=crop" alt="Garden Whisper" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-leaf\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Garden Whisper</div>
+              <div class="flex-between">
+                <div class="price">$62.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" style="width: 160px;" onclick="showProductDetail('Sunlit Joy', 45.50, 'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 160px;">
+              <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=400&h=400&fit=crop" alt="Sunlit Joy" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-spa\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Sunlit Joy</div>
+              <div class="flex-between">
+                <div class="price">$45.50</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h3>Popular flowers</h3>
+          <span class="see-all" onclick="goTo('explore')">See all <i class="fas fa-arrow-right" style="font-size: 10px;"></i></span>
+        </div>
+        <div class="product-grid mb-24">
+          <div class="img-card" onclick="showProductDetail('Peony Dream', 38.00, 'https://images.unsplash.com/photo-1596438459194-f28d9b7b8e9f?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1596438459194-f28d9b7b8e9f?w=400&h=400&fit=crop" alt="Peony Dream" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-fan\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Peony Dream</div>
+              <div class="flex-between">
+                <div class="price">$38.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Sunflower Glow', 32.50, 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=400&h=400&fit=crop" alt="Sunflower Glow" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-sun\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Sunflower Glow</div>
+              <div class="flex-between">
+                <div class="price">$32.50</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Lavender Mist', 44.00, 'https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&h=400&fit=crop" alt="Lavender Mist" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-moon\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Lavender Mist</div>
+              <div class="flex-between">
+                <div class="price">$44.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Stargazer Lily', 52.00, 'https://images.unsplash.com/photo-1560717845-968823efbee1?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1560717845-968823efbee1?w=400&h=400&fit=crop" alt="Stargazer Lily" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-star\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Stargazer Lily</div>
+              <div class="flex-between">
+                <div class="price">$52.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== EXPLORE ==================== -->
+      <div id="screen-explore" class="screen-content">
+        <h2 class="mb-20">Explore</h2>
+
+        <div class="search-bar mb-20" onclick="goTo('search')">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search flowers, occasions..." readonly style="cursor: pointer;">
+        </div>
+
+        <div class="section-header"><h3>Categories</h3></div>
+        <div class="flex gap-8 mb-24" style="flex-wrap: wrap;">
+          <div class="occasion-chip">Roses</div>
+          <div class="occasion-chip">Peonies</div>
+          <div class="occasion-chip">Tulips</div>
+          <div class="occasion-chip">Lilies</div>
+          <div class="occasion-chip">Sunflowers</div>
+          <div class="occasion-chip">Orchids</div>
+        </div>
+
+        <div class="section-header"><h3>Browse occasions</h3></div>
+        <div class="product-grid mb-24">
+          <div class="card" style="text-align: center; padding: 24px 12px; cursor: pointer;" onclick="switchToOccasion('Birthday')">
+            <i class="fas fa-birthday-cake" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>
+            <div style="font-weight: 700; font-size: 14px;">Birthday</div>
+            <div class="caption">24 bouquets</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 24px 12px; cursor: pointer;" onclick="switchToOccasion('Anniversary')">
+            <i class="fas fa-heart" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>
+            <div style="font-weight: 700; font-size: 14px;">Anniversary</div>
+            <div class="caption">18 bouquets</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 24px 12px; cursor: pointer;" onclick="switchToOccasion('Thank You')">
+            <i class="fas fa-thumbs-up" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>
+            <div style="font-weight: 700; font-size: 14px;">Thank You</div>
+            <div class="caption">12 bouquets</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 24px 12px; cursor: pointer;" onclick="switchToOccasion('Congratulations')">
+            <i class="fas fa-trophy" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>
+            <div style="font-weight: 700; font-size: 14px;">Congrats</div>
+            <div class="caption">9 bouquets</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h3>All bouquets</h3>
+          <i class="fas fa-sliders-h" style="color: var(--primary); cursor: pointer;" onclick="goTo('filters')"></i>
+        </div>
+        <div class="filter-row mb-16">
+          <div class="filter-chip active">All</div>
+          <div class="filter-chip">Under $40</div>
+          <div class="filter-chip">Best sellers</div>
+          <div class="filter-chip">Same day</div>
+        </div>
+        <div class="product-grid">
+          <div class="img-card" onclick="showProductDetail('Rose Serenade', 56.00, 'https://images.unsplash.com/photo-1548586196-aa5803b77379?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1548586196-aa5803b77379?w=400&h=400&fit=crop" alt="Rose Serenade" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-seedling\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Rose Serenade</div>
+              <div class="flex-between">
+                <div class="price">$56.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Wildflower Mix', 42.00, 'https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=400&h=400&fit=crop" alt="Wildflower Mix" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-leaf\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Wildflower Mix</div>
+              <div class="flex-between">
+                <div class="price">$42.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Tulip Charm', 38.90, 'https://images.unsplash.com/photo-1520763185298-1b434c919102?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?w=400&h=400&fit=crop" alt="Tulip Charm" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-spa\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Tulip Charm</div>
+              <div class="flex-between">
+                <div class="price">$38.90</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+              </div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Orchid Grace', 68.00, 'https://images.unsplash.com/photo-1610397648930-477b8c7f0943?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1610397648930-477b8c7f0943?w=400&h=400&fit=crop" alt="Orchid Grace" onerror="this.parentElement.innerHTML='<div class=\'img-fallback\'><i class=\'fas fa-fan\'></i></div>'">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Orchid Grace</div>
+              <div class="flex-between">
+                <div class="price">$68.00</div>
+                <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== SEARCH ==================== -->
+      <div id="screen-search" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Search</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div class="search-bar mb-20">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search flowers, occasions..." autofocus>
+          <i class="fas fa-times" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+
+        <h4 class="mb-12">Recent searches</h4>
+        <div class="search-suggestion" onclick="showProductDetail('Blush Elegance', 49.90, 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop')">
+          <i class="fas fa-clock"></i>
+          <span class="sug-text">Blush Elegance</span>
+          <span class="sug-tag">Bouquet</span>
+        </div>
+        <div class="search-suggestion" onclick="switchToOccasion('Birthday')">
+          <i class="fas fa-clock"></i>
+          <span class="sug-text">Birthday flowers</span>
+          <span class="sug-tag">Occasion</span>
+        </div>
+        <div class="search-suggestion" onclick="showProductDetail('Peony Dream', 38.00, 'https://images.unsplash.com/photo-1596438459194-f28d9b7b8e9f?w=400&h=400&fit=crop')">
+          <i class="fas fa-clock"></i>
+          <span class="sug-text">Peony Dream</span>
+          <span class="sug-tag">Bouquet</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <h4 class="mb-12">Popular searches</h4>
+        <div class="flex gap-8 mb-24" style="flex-wrap: wrap;">
+          <div class="occasion-chip" onclick="switchToOccasion('Birthday')">Birthday</div>
+          <div class="occasion-chip" onclick="switchToOccasion('Anniversary')">Anniversary</div>
+          <div class="occasion-chip">Roses</div>
+          <div class="occasion-chip">Peonies</div>
+          <div class="occasion-chip">Same day</div>
+          <div class="occasion-chip">Under $40</div>
+        </div>
+
+        <h4 class="mb-12">Browse by category</h4>
+        <div class="product-grid">
+          <div class="card" style="text-align: center; padding: 20px 12px; cursor: pointer;" onclick="goTo('explore')">
+            <i class="fas fa-seedling" style="font-size: 28px; color: var(--primary); margin-bottom: 8px;"></i>
+            <div style="font-weight: 700; font-size: 13px;">Roses</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 20px 12px; cursor: pointer;" onclick="goTo('explore')">
+            <i class="fas fa-fan" style="font-size: 28px; color: var(--primary); margin-bottom: 8px;"></i>
+            <div style="font-weight: 700; font-size: 13px;">Peonies</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 20px 12px; cursor: pointer;" onclick="goTo('explore')">
+            <i class="fas fa-spa" style="font-size: 28px; color: var(--primary); margin-bottom: 8px;"></i>
+            <div style="font-weight: 700; font-size: 13px;">Tulips</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 20px 12px; cursor: pointer;" onclick="goTo('explore')">
+            <i class="fas fa-star" style="font-size: 28px; color: var(--primary); margin-bottom: 8px;"></i>
+            <div style="font-weight: 700; font-size: 13px;">Lilies</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== FILTERS ==================== -->
+      <div id="screen-filters" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Filters</h3>
+          <span style="font-size: 13px; color: var(--primary); font-weight: 600; cursor: pointer;" onclick="goBack()">Reset</span>
+        </div>
+
+        <h4 class="mb-12">Price range</h4>
+        <div class="flex gap-10 mb-24">
+          <div class="size-option" style="cursor: default;">$0 – $30</div>
+          <div class="size-option selected" style="cursor: default;">$30 – $60</div>
+          <div class="size-option" style="cursor: default;">$60+</div>
+        </div>
+
+        <h4 class="mb-12">Flower type</h4>
+        <div class="flex gap-8 mb-24" style="flex-wrap: wrap;">
+          <div class="occasion-chip active">All</div>
+          <div class="occasion-chip">Roses</div>
+          <div class="occasion-chip">Peonies</div>
+          <div class="occasion-chip">Tulips</div>
+          <div class="occasion-chip">Lilies</div>
+        </div>
+
+        <h4 class="mb-12">Occasion</h4>
+        <div class="flex gap-8 mb-24" style="flex-wrap: wrap;">
+          <div class="occasion-chip">Birthday</div>
+          <div class="occasion-chip">Anniversary</div>
+          <div class="occasion-chip">Thank You</div>
+          <div class="occasion-chip">Sympathy</div>
+        </div>
+
+        <h4 class="mb-12">Delivery</h4>
+        <div class="card mb-24" style="padding: 0;">
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">Same-day delivery</div>
+              <div class="settings-desc">Order before 2 PM</div>
+            </div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">Free delivery</div>
+              <div class="settings-desc">On orders over $50</div>
+            </div>
+            <div class="toggle"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="goBack()">Apply filters</button>
+      </div>
+
+      <!-- ==================== PRODUCT DETAIL ==================== -->
+      <div id="screen-detail" class="screen-content">
+        <div class="detail-image">
+          <img id="detail-img" src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600&h=600&fit=crop" alt="Flower">
+          <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <div class="heart" style="position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 16px; cursor: pointer; box-shadow: var(--shadow-sm); z-index: 2;" onclick="toggleHeart(event)">
+            <i class="fas fa-heart"></i>
+          </div>
+        </div>
+
+        <div class="flex-between mb-8">
+          <h2 id="detail-name" style="font-size: 24px;">Blush Elegance</h2>
+          <span class="badge" style="background: var(--secondary-light); color: var(--secondary-dark); font-size: 11px;">In stock</span>
+        </div>
+
+        <div class="flex gap-8 mb-12">
+          <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+          </div>
+          <span class="caption">4.9 (126 reviews)</span>
+        </div>
+
+        <p class="body-text mb-16">A romantic mix of blush roses, eucalyptus, and seasonal accents. Perfect for anniversaries, birthdays, or simply to make someone's day.</p>
+
+        <div class="flex-between mb-20">
+          <span id="detail-price" style="font-weight: 700; font-size: 26px; color: var(--primary);">$49.90</span>
+          <span class="caption" style="color: var(--secondary); font-weight: 600;"><i class="fas fa-truck"></i> Free delivery</span>
+        </div>
+
+        <h4 class="mb-10">Size</h4>
+        <div class="size-selector mb-20">
+          <div class="size-option" onclick="selectSize(this)">Small</div>
+          <div class="size-option selected" onclick="selectSize(this)">Medium</div>
+          <div class="size-option" onclick="selectSize(this)">Large</div>
+        </div>
+
+        <h4 class="mb-10">Color palette</h4>
+        <div class="flex gap-12 mb-20">
+          <div class="color-swatch selected" style="background: #F5C6CB;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #FDE2C4;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #D4E0D2;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #E6D7F0;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #FCE9C4;" onclick="selectColor(this)"></div>
+        </div>
+
+        <div class="card mb-20">
+          <h4 class="mb-12">Flower details</h4>
+          <div class="summary-row"><span>Flower types</span><span class="value">Roses, Eucalyptus, Seasonal</span></div>
+          <div class="summary-row"><span>Stem count</span><span class="value">18–22 stems</span></div>
+          <div class="summary-row"><span>Freshness</span><span class="value">7–10 days</span></div>
+          <div class="summary-row" style="border-bottom: none;"><span>Vase life</span><span class="value">5–7 days</span></div>
+        </div>
+
+        <div class="card mb-20">
+          <h4 class="mb-12">Reviews</h4>
+          <div class="flex gap-12 mb-12">
+            <div class="avatar" style="width: 40px; height: 40px; font-size: 16px;">A</div>
+            <div>
+              <div style="font-weight: 700; font-size: 13px;">Amara S.</div>
+              <div class="stars" style="margin: 2px 0;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="caption" style="margin-top: 4px;">Absolutely beautiful! My mom loved them.</p>
+            </div>
+          </div>
+          <div class="flex gap-12">
+            <div class="avatar" style="width: 40px; height: 40px; font-size: 16px; background: linear-gradient(135deg, var(--secondary-light), var(--secondary));">K</div>
+            <div>
+              <div style="font-weight: 700; font-size: 13px;">Kasun M.</div>
+              <div class="stars" style="margin: 2px 0;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              <p class="caption" style="margin-top: 4px;">Fresh and delivered on time. Will order again.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-cta">
+          <button class="btn btn-primary btn-block" onclick="goTo('customize')">
+            <i class="fas fa-paint-brush"></i> Customize bouquet
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== CUSTOMIZE ==================== -->
+      <div id="screen-customize" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Customize</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div class="detail-image" style="height: 180px;">
+          <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600&h=400&fit=crop" alt="Customize preview">
+        </div>
+
+        <h4 class="mb-10">Flower type</h4>
+        <div class="flex gap-8 mb-20" style="flex-wrap: wrap;">
+          <div class="occasion-chip active">Roses</div>
+          <div class="occasion-chip">Peonies</div>
+          <div class="occasion-chip">Tulips</div>
+          <div class="occasion-chip">Lilies</div>
+          <div class="occasion-chip">Mixed</div>
+        </div>
+
+        <h4 class="mb-10">Color palette</h4>
+        <div class="flex gap-12 mb-20">
+          <div class="color-swatch selected" style="background: #F5C6CB;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #FDE2C4;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #D4E0D2;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #E6D7F0;" onclick="selectColor(this)"></div>
+          <div class="color-swatch" style="background: #FCE9C4;" onclick="selectColor(this)"></div>
+        </div>
+
+        <h4 class="mb-10">Size</h4>
+        <div class="size-selector mb-20">
+          <div class="size-option" onclick="selectSize(this)">Small</div>
+          <div class="size-option selected" onclick="selectSize(this)">Medium</div>
+          <div class="size-option" onclick="selectSize(this)">Large</div>
+        </div>
+
+        <h4 class="mb-10">Add-ons</h4>
+        <div class="card mb-20" style="padding: 4px 16px;">
+          <div class="addon-option" onclick="toggleAddon(this)">
+            <div class="addon-check checked"><i class="fas fa-check"></i></div>
+            <span class="addon-label">Greeting card</span>
+            <span class="addon-price">+$4.90</span>
+          </div>
+          <div class="addon-option" onclick="toggleAddon(this)">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <span class="addon-label">Chocolates</span>
+            <span class="addon-price">+$8.50</span>
+          </div>
+          <div class="addon-option" onclick="toggleAddon(this)">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <span class="addon-label">Vase</span>
+            <span class="addon-price">+$12.00</span>
+          </div>
+        </div>
+
+        <h4 class="mb-10">Personal message</h4>
+        <div class="message-input mb-24">
+          <input type="text" placeholder="Write your message..." value="Happy birthday! 🌸">
+        </div>
+
+        <div class="floating-cta">
+          <button class="btn btn-primary btn-block" onclick="goTo('delivery')">
+            <i class="fas fa-arrow-right"></i> Continue to delivery
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== DELIVERY ==================== -->
+      <div id="screen-delivery" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Delivery</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <h4 class="mb-10">Delivery address</h4>
+        <div class="search-bar mb-16" style="border-radius: var(--radius-md);">
+          <i class="fas fa-map-pin"></i>
+          <input type="text" placeholder="Address" value="42, Flower Lane, Colombo 05">
+        </div>
+
+        <div class="flex gap-10 mb-16">
+          <div style="flex: 1;">
+            <h4 class="mb-10">Date</h4>
+            <div class="search-bar" style="border-radius: var(--radius-md);">
+              <i class="fas fa-calendar"></i>
+              <input type="text" value="15 Jun 2025">
+            </div>
+          </div>
+          <div style="flex: 1;">
+            <h4 class="mb-10">Time</h4>
+            <div class="search-bar" style="border-radius: var(--radius-md);">
+              <i class="fas fa-clock"></i>
+              <input type="text" value="10:00 – 12:00">
+            </div>
+          </div>
+        </div>
+
+        <h4 class="mb-10">Recipient details</h4>
+        <div class="search-bar mb-16" style="border-radius: var(--radius-md);">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Recipient name" value="Amara Silva">
+        </div>
+        <div class="search-bar mb-20" style="border-radius: var(--radius-md);">
+          <i class="fas fa-phone"></i>
+          <input type="text" placeholder="Phone number" value="+94 77 123 4567">
+        </div>
+
+        <div class="card mb-24" style="background: var(--primary-soft); border: none;">
+          <div class="flex gap-10">
+            <i class="fas fa-info-circle" style="color: var(--primary); font-size: 16px; margin-top: 2px;"></i>
+            <div>
+              <p style="font-weight: 700; font-size: 13px; color: var(--primary);">Same-day delivery available</p>
+              <p class="caption" style="margin-top: 4px;">Order before 2:00 PM for same-day delivery in Colombo.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-cta">
+          <button class="btn btn-primary btn-block" onclick="goTo('summary')">
+            <i class="fas fa-arrow-right"></i> Review order
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== SUMMARY ==================== -->
+      <div id="screen-summary" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Order Summary</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div class="card mb-16">
+          <div class="flex gap-12 mb-16">
+            <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=100&h=100&fit=crop" alt="Bouquet" style="width: 60px; height: 60px; border-radius: var(--radius-sm); object-fit: cover;">
+            <div style="flex: 1;">
+              <div style="font-weight: 700; font-size: 14px;">Blush Elegance</div>
+              <div class="caption">Medium · Roses</div>
+            </div>
+          </div>
+          <div class="summary-row"><span>Bouquet</span><span class="value">$49.90</span></div>
+          <div class="summary-row"><span>Greeting card</span><span class="value">$4.90</span></div>
+          <div class="summary-row"><span>Delivery</span><span class="value" style="color: var(--secondary);">Free</span></div>
+          <div class="summary-row total"><span>Total</span><span class="value" style="color: var(--primary);">$54.80</span></div>
+        </div>
+
+        <div class="card mb-16">
+          <h4 class="mb-12">Delivery details</h4>
+          <div class="flex gap-10 mb-12">
+            <i class="fas fa-map-pin" style="color: var(--primary); font-size: 14px; margin-top: 3px;"></i>
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">42, Flower Lane, Colombo 05</div>
+              <div class="caption">Amara Silva · +94 77 123 4567</div>
+            </div>
+          </div>
+          <div class="flex gap-10">
+            <i class="fas fa-calendar" style="color: var(--primary); font-size: 14px; margin-top: 3px;"></i>
+            <div><div style="font-size: 13px; font-weight: 600;">15 June 2025 · 10:00 – 12:00</div></div>
+          </div>
+        </div>
+
+        <div class="card mb-24" onclick="goTo('payment-methods')" style="cursor: pointer;">
+          <h4 class="mb-12">Payment method</h4>
+          <div class="flex-between">
+            <div class="flex gap-10">
+              <i class="fas fa-credit-card" style="color: var(--primary); font-size: 16px;"></i>
+              <span style="font-size: 14px; font-weight: 600;">•••• 4242</span>
+            </div>
+            <span class="caption" style="color: var(--primary); font-weight: 600;">Change</span>
+          </div>
+        </div>
+
+        <div class="floating-cta">
+          <button class="btn btn-primary btn-block" onclick="goTo('confirmation')">
+            <i class="fas fa-lock"></i> Pay $54.80
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== CONFIRMATION ==================== -->
+      <div id="screen-confirmation" class="screen-content">
+        <div class="text-center mt-32">
+          <div class="confirmation-icon"><i class="fas fa-check"></i></div>
+          <h2 style="font-size: 26px; margin-bottom: 8px;">Order confirmed!</h2>
+          <p class="body-text mb-24">Your flowers are being prepared with love.</p>
+
+          <div class="card mb-20" style="text-align: left;">
+            <div class="summary-row"><span>Order number</span><span class="value">#BLM-2025-0615</span></div>
+            <div class="summary-row"><span>Delivery date</span><span class="value">15 June 2025</span></div>
+            <div class="summary-row"><span>Time slot</span><span class="value">10:00 – 12:00</span></div>
+            <div class="summary-row" style="border-bottom: none;"><span>Total paid</span><span class="value" style="color: var(--primary);">$54.80</span></div>
+          </div>
+
+          <button class="btn btn-secondary btn-block mb-12" onclick="goTo('tracking')">
+            <i class="fas fa-map-marker-alt"></i> Track your order
+          </button>
+          <button class="btn btn-outline btn-block" onclick="goTo('home')">
+            Back to home
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TRACKING ==================== -->
+      <div id="screen-tracking" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Track Order</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div class="card mb-20" style="background: linear-gradient(135deg, var(--primary-soft), #FCE9E3); border: none;">
+          <div class="flex-between">
+            <div>
+              <div class="caption">Order number</div>
+              <div style="font-weight: 700; font-size: 16px; margin-top: 2px;">#BLM-2025-0615</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="caption">Estimated delivery</div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--primary); margin-top: 2px;">10:00 – 12:00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tracking-steps">
+          <div class="step done">
+            <div class="step-icon done"><i class="fas fa-check"></i></div>
+            <div class="step-content"><h4>Order confirmed</h4><p>Today, 09:15 AM</p></div>
+          </div>
+          <div class="step done">
+            <div class="step-icon done"><i class="fas fa-check"></i></div>
+            <div class="step-content"><h4>Flowers being prepared</h4><p>Today, 09:30 AM</p></div>
+          </div>
+          <div class="step active">
+            <div class="step-icon active"><i class="fas fa-truck"></i></div>
+            <div class="step-content"><h4>Out for delivery</h4><p>Expected 10:30 AM</p></div>
+          </div>
+          <div class="step">
+            <div class="step-icon"><i class="fas fa-home"></i></div>
+            <div class="step-content"><h4>Delivered</h4><p>Pending</p></div>
+          </div>
+        </div>
+
+        <div class="alert mb-20">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div>
+            <div class="alert-title">One flower unavailable</div>
+            <div class="alert-text">Peony is temporarily out of stock. We can substitute with a similar bloom or adjust your bouquet.</div>
+            <div class="flex gap-8 mt-12">
+              <span class="badge" style="background: var(--white); border: 1px solid var(--accent); cursor: pointer; font-size: 11px;" onclick="goTo('support')">Substitute</span>
+              <span class="badge" style="background: var(--white); border: 1px solid var(--accent); cursor: pointer; font-size: 11px;" onclick="goTo('explore')">Change bouquet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-20">
+          <h4 class="mb-12">Delivery address</h4>
+          <div class="flex gap-10">
+            <i class="fas fa-map-pin" style="color: var(--primary); font-size: 14px; margin-top: 3px;"></i>
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">42, Flower Lane, Colombo 05</div>
+              <div class="caption">Amara Silva · +94 77 123 4567</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-block mb-20" onclick="goTo('support')">
+          <i class="fas fa-headset"></i> Contact support
+        </button>
+      </div>
+
+      <!-- ==================== ORDERS ==================== -->
+      <div id="screen-orders" class="screen-content">
+        <h2 class="mb-20">My Orders</h2>
+
+        <div class="order-card" style="border-left: 4px solid var(--primary);" onclick="goTo('tracking')">
+          <div class="order-header">
+            <span class="order-id">#BLM-2025-0615</span>
+            <span class="status-badge in-progress">In progress</span>
+          </div>
+          <div class="order-item">
+            <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=100&h=100&fit=crop" alt="Blush Elegance">
+            <div class="item-info">
+              <div class="item-name">Blush Elegance</div>
+              <div class="item-size">Medium · Birthday</div>
+            </div>
+          </div>
+          <div class="order-footer">
+            <span class="caption">15 Jun · 10:00–12:00</span>
+            <span class="order-total">$54.80</span>
+          </div>
+          <button class="btn btn-secondary btn-sm btn-block mt-12">Track order</button>
+        </div>
+
+        <div class="order-card" onclick="showProductDetail('Garden Whisper', 62.00, 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=400&fit=crop')">
+          <div class="order-header">
+            <span class="order-id">#BLM-2025-0520</span>
+            <span class="status-badge delivered">Delivered</span>
+          </div>
+          <div class="order-item">
+            <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=100&h=100&fit=crop" alt="Garden Whisper">
+            <div class="item-info">
+              <div class="item-name">Garden Whisper</div>
+              <div class="item-size">Large · Anniversary</div>
+            </div>
+          </div>
+          <div class="order-footer">
+            <span class="caption">20 May · 14:30</span>
+            <span class="order-total">$78.50</span>
+          </div>
+          <button class="btn btn-outline btn-sm btn-block mt-12">Reorder</button>
+        </div>
+
+        <div class="order-card" onclick="showProductDetail('Sunlit Joy', 45.50, 'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=400&h=400&fit=crop')">
+          <div class="order-header">
+            <span class="order-id">#BLM-2025-0410</span>
+            <span class="status-badge delivered">Delivered</span>
+          </div>
+          <div class="order-item">
+            <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=100&h=100&fit=crop" alt="Sunlit Joy">
+            <div class="item-info">
+              <div class="item-name">Sunlit Joy</div>
+              <div class="item-size">Medium · Thank You</div>
+            </div>
+          </div>
+          <div class="order-footer">
+            <span class="caption">10 Apr · 11:00</span>
+            <span class="order-total">$45.50</span>
+          </div>
+          <button class="btn btn-outline btn-sm btn-block mt-12">Reorder</button>
+        </div>
+
+        <div class="empty-state">
+          <i class="fas fa-box-open"></i>
+          <p class="caption">No more orders</p>
+        </div>
+      </div>
+
+      <!-- ==================== WISHLIST ==================== -->
+      <div id="screen-wishlist" class="screen-content">
+        <h2 class="mb-20">Wishlist</h2>
+
+        <div class="product-grid">
+          <div class="img-card" onclick="showProductDetail('Peony Dream', 38.00, 'https://images.unsplash.com/photo-1596438459194-f28d9b7b8e9f?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1596438459194-f28d9b7b8e9f?w=400&h=400&fit=crop" alt="Peony Dream">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Peony Dream</div>
+              <div class="price">$38.00</div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Stargazer Lily', 52.00, 'https://images.unsplash.com/photo-1560717845-968823efbee1?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1560717845-968823efbee1?w=400&h=400&fit=crop" alt="Stargazer Lily">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Stargazer Lily</div>
+              <div class="price">$52.00</div>
+            </div>
+          </div>
+          <div class="img-card" onclick="showProductDetail('Lavender Mist', 44.00, 'https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&h=400&fit=crop')">
+            <div class="img-wrap" style="height: 150px;">
+              <img src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&h=400&fit=crop" alt="Lavender Mist">
+              <div class="heart" onclick="toggleHeart(event)"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="info">
+              <div class="name">Lavender Mist</div>
+              <div class="price">$44.00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-24">
+          <p class="caption">Tap the heart to remove from wishlist</p>
+        </div>
+      </div>
+
+      <!-- ==================== PROFILE ==================== -->
+      <div id="screen-profile" class="screen-content">
+        <h2 class="mb-20">Profile</h2>
+
+        <div class="card mb-20" style="display: flex; align-items: center; gap: 16px; padding: 20px;">
+          <div class="avatar">V</div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 18px; margin-bottom: 2px;">Vimansa Dissanayake</h3>
+            <p class="caption">vimansa@email.com</p>
+          </div>
+          <i class="fas fa-pen" style="color: var(--primary); cursor: pointer;" onclick="goTo('settings')"></i>
+        </div>
+
+        <div class="profile-menu mb-16">
+          <div class="profile-menu-item" onclick="goTo('addresses')">
+            <i class="fas fa-map-pin"></i>
+            <span class="menu-text">Saved addresses</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item" onclick="goTo('payment-methods')">
+            <i class="fas fa-credit-card"></i>
+            <span class="menu-text">Payment methods</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item" onclick="goTo('notifications')">
+            <i class="fas fa-bell"></i>
+            <span class="menu-text">Notifications</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item" onclick="goTo('settings')">
+            <i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item" onclick="goTo('support')">
+            <i class="fas fa-headset"></i>
+            <span class="menu-text">Help & Support</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+        </div>
+
+        <div class="profile-menu mb-24">
+          <div class="profile-menu-item" onclick="goTo('home')">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Log out</span>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="caption">Bloom v1.0.0</p>
+          <p class="caption">Made with 🌸</p>
+        </div>
+      </div>
+
+      <!-- ==================== NOTIFICATIONS ==================== -->
+      <div id="screen-notifications" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Notifications</h3>
+          <span style="font-size: 12px; color: var(--primary); font-weight: 600; cursor: pointer;">Mark all read</span>
+        </div>
+
+        <div class="notif-item unread" onclick="goTo('tracking')">
+          <div class="notif-icon delivery"><i class="fas fa-truck"></i></div>
+          <div class="notif-content">
+            <div class="notif-title">Out for delivery</div>
+            <div class="notif-text">Your order #BLM-2025-0615 is on the way. Expected by 10:30 AM.</div>
+            <div class="notif-time"><i class="fas fa-clock"></i> 5 min ago</div>
+          </div>
+          <div class="notif-dot"></div>
+        </div>
+
+        <div class="notif-item unread" onclick="goTo('orders')">
+          <div class="notif-icon order"><i class="fas fa-check-circle"></i></div>
+          <div class="notif-content">
+            <div class="notif-title">Order confirmed</div>
+            <div class="notif-text">Your Blush Elegance bouquet has been confirmed and is being prepared.</div>
+            <div class="notif-time"><i class="fas fa-clock"></i> 2 hours ago</div>
+          </div>
+          <div class="notif-dot"></div>
+        </div>
+
+        <div class="notif-item" onclick="goTo('explore')">
+          <div class="notif-icon promo"><i class="fas fa-tag"></i></div>
+          <div class="notif-content">
+            <div class="notif-title">Spring sale — 25% off</div>
+            <div class="notif-text">Fresh seasonal blooms are here. Enjoy up to 25% off this week only.</div>
+            <div class="notif-time"><i class="fas fa-clock"></i> Yesterday</div>
+          </div>
+        </div>
+
+        <div class="notif-item" onclick="goTo('tracking')">
+          <div class="notif-icon delivery"><i class="fas fa-box"></i></div>
+          <div class="notif-content">
+            <div class="notif-title">Order delivered</div>
+            <div class="notif-text">Your Garden Whisper bouquet was delivered successfully. Enjoy!</div>
+            <div class="notif-time"><i class="fas fa-clock"></i> 2 days ago</div>
+          </div>
+        </div>
+
+        <div class="notif-item" onclick="switchToOccasion('Anniversary')">
+          <div class="notif-icon reminder"><i class="fas fa-heart"></i></div>
+          <div class="notif-content">
+            <div class="notif-title">Anniversary reminder</div>
+            <div class="notif-text">Your anniversary is coming up in 2 weeks. Pre-order flowers now.</div>
+            <div class="notif-time"><i class="fas fa-clock"></i> 3 days ago</div>
+          </div>
+        </div>
+
+        <div class="notif-item" onclick="goTo('explore')">
+          <div class="notif-icon promo"><i class="fas fa-gift"></i></div>
+          <div class="notif-content">
+            <div class="notif-title">New arrivals</div>
+            <div class="notif-text">Check out our new Peony Dream collection — now available.</div>
+            <div class="notif-time"><i class="fas fa-clock"></i> 5 days ago</div>
+          </div>
+        </div>
+
+        <div class="empty-state">
+          <i class="fas fa-bell-slash"></i>
+          <p class="caption">You're all caught up!</p>
+        </div>
+      </div>
+
+      <!-- ==================== ADDRESSES ==================== -->
+      <div id="screen-addresses" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Saved Addresses</h3>
+          <i class="fas fa-plus" style="color: var(--primary); font-size: 16px; cursor: pointer;"></i>
+        </div>
+
+        <div class="address-card default">
+          <span class="addr-label">Default</span>
+          <div class="addr-name">Home</div>
+          <div class="addr-text">42, Flower Lane, Colombo 05<br>+94 77 123 4567</div>
+          <div class="addr-actions">
+            <span>Edit</span>
+            <span>Delete</span>
+          </div>
+        </div>
+
+        <div class="address-card">
+          <div class="addr-name">Office</div>
+          <div class="addr-text">Level 12, Bloom Tower, Colombo 03<br>+94 11 234 5678</div>
+          <div class="addr-actions">
+            <span>Set as default</span>
+            <span>Edit</span>
+            <span>Delete</span>
+          </div>
+        </div>
+
+        <div class="address-card">
+          <div class="addr-name">Mom's place</div>
+          <div class="addr-text">15, Rose Garden, Kandy<br>+94 81 234 5678</div>
+          <div class="addr-actions">
+            <span>Set as default</span>
+            <span>Edit</span>
+            <span>Delete</span>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-block mt-16">
+          <i class="fas fa-plus"></i> Add new address
+        </button>
+      </div>
+
+      <!-- ==================== PAYMENT METHODS ==================== -->
+      <div id="screen-payment-methods" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Payment Methods</h3>
+          <i class="fas fa-plus" style="color: var(--primary); font-size: 16px; cursor: pointer;"></i>
+        </div>
+
+        <div class="payment-card selected">
+          <div class="pay-icon"><i class="fas fa-credit-card"></i></div>
+          <div class="pay-info">
+            <div class="pay-name">Visa •••• 4242</div>
+            <div class="pay-detail">Expires 12/26</div>
+          </div>
+          <i class="fas fa-check-circle pay-check"></i>
+        </div>
+
+        <div class="payment-card">
+          <div class="pay-icon"><i class="fas fa-credit-card"></i></div>
+          <div class="pay-info">
+            <div class="pay-name">Mastercard •••• 8888</div>
+            <div class="pay-detail">Expires 09/25</div>
+          </div>
+        </div>
+
+        <div class="payment-card">
+          <div class="pay-icon"><i class="fas fa-wallet"></i></div>
+          <div class="pay-info">
+            <div class="pay-name">Digital Wallet</div>
+            <div class="pay-detail">Balance: $124.50</div>
+          </div>
+        </div>
+
+        <div class="payment-card">
+          <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="pay-info">
+            <div class="pay-name">Mobile Payment</div>
+            <div class="pay-detail">Link your mobile wallet</div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-block mt-16">
+          <i class="fas fa-plus"></i> Add payment method
+        </button>
+      </div>
+
+      <!-- ==================== SETTINGS ==================== -->
+      <div id="screen-settings" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Settings</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div class="card mb-16" style="padding: 0;">
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">Push notifications</div>
+              <div class="settings-desc">Order updates and promotions</div>
+            </div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">Email notifications</div>
+              <div class="settings-desc">Receipts and newsletters</div>
+            </div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">SMS updates</div>
+              <div class="settings-desc">Delivery status via SMS</div>
+            </div>
+            <div class="toggle"></div>
+          </div>
+        </div>
+
+        <div class="card mb-16" style="padding: 0;">
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">Dark mode</div>
+              <div class="settings-desc">Coming soon</div>
+            </div>
+            <div class="toggle"></div>
+          </div>
+          <div class="settings-row" onclick="toggleSwitch(this)">
+            <div>
+              <div class="settings-label">Biometric login</div>
+              <div class="settings-desc">Use fingerprint or face ID</div>
+            </div>
+            <div class="toggle on"></div>
+          </div>
+        </div>
+
+        <div class="profile-menu mb-16">
+          <div class="profile-menu-item">
+            <i class="fas fa-globe"></i>
+            <span class="menu-text">Language</span>
+            <span class="caption" style="margin-left: auto; margin-right: 8px;">English</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item">
+            <i class="fas fa-dollar-sign"></i>
+            <span class="menu-text">Currency</span>
+            <span class="caption" style="margin-left: auto; margin-right: 8px;">USD</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item">
+            <i class="fas fa-shield-alt"></i>
+            <span class="menu-text">Privacy policy</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+          <div class="profile-menu-item">
+            <i class="fas fa-file-alt"></i>
+            <span class="menu-text">Terms of service</span>
+            <i class="fas fa-chevron-right chevron"></i>
+          </div>
+        </div>
+
+        <div class="profile-menu">
+          <div class="profile-menu-item" style="color: var(--primary);">
+            <i class="fas fa-trash-alt" style="color: var(--primary);"></i>
+            <span class="menu-text" style="color: var(--primary);">Delete account</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== SUPPORT ==================== -->
+      <div id="screen-support" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <h3 style="font-size: 18px; margin-bottom: 0;">Help & Support</h3>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div class="card mb-20" style="background: linear-gradient(135deg, var(--primary-soft), #FCE9E3); border: none; text-align: center; padding: 24px;">
+          <i class="fas fa-headset" style="font-size: 32px; color: var(--primary); margin-bottom: 12px;"></i>
+          <h3 style="font-size: 18px;">We're here to help</h3>
+          <p class="caption" style="margin-top: 4px;">Average response time: 2 minutes</p>
+        </div>
+
+        <div class="support-option" onclick="goTo('chat')">
+          <div class="sup-icon"><i class="fas fa-comments"></i></div>
+          <div>
+            <div class="sup-title">Live chat</div>
+            <div class="sup-desc">Chat with our support team</div>
+          </div>
+          <i class="fas fa-chevron-right sup-chevron"></i>
+        </div>
+
+        <div class="support-option">
+          <div class="sup-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="sup-title">Call us</div>
+            <div class="sup-desc">+94 11 234 5678</div>
+          </div>
+          <i class="fas fa-chevron-right sup-chevron"></i>
+        </div>
+
+        <div class="support-option">
+          <div class="sup-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="sup-title">Email support</div>
+            <div class="sup-desc">help@bloom.lk</div>
+          </div>
+          <i class="fas fa-chevron-right sup-chevron"></i>
+        </div>
+
+        <div class="divider"></div>
+
+        <h4 class="mb-12">Frequently asked questions</h4>
+        <div class="card mb-12" style="cursor: pointer;">
+          <div class="flex-between">
+            <span style="font-weight: 600; font-size: 13px;">How do I track my order?</span>
+            <i class="fas fa-chevron-down" style="color: var(--primary); font-size: 12px;"></i>
+          </div>
+        </div>
+        <div class="card mb-12" style="cursor: pointer;">
+          <div class="flex-between">
+            <span style="font-weight: 600; font-size: 13px;">What is your refund policy?</span>
+            <i class="fas fa-chevron-down" style="color: var(--primary); font-size: 12px;"></i>
+          </div>
+        </div>
+        <div class="card mb-12" style="cursor: pointer;">
+          <div class="flex-between">
+            <span style="font-weight: 600; font-size: 13px;">Can I change my delivery date?</span>
+            <i class="fas fa-chevron-down" style="color: var(--primary); font-size: 12px;"></i>
+          </div>
+        </div>
+        <div class="card mb-12" style="cursor: pointer;">
+          <div class="flex-between">
+            <span style="font-weight: 600; font-size: 13px;">Do you deliver on weekends?</span>
+            <i class="fas fa-chevron-down" style="color: var(--primary); font-size: 12px;"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== CHAT ==================== -->
+      <div id="screen-chat" class="screen-content">
+        <div class="flex-between mb-20">
+          <button class="btn-icon" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+          <div style="text-align: center;">
+            <h3 style="font-size: 16px; margin-bottom: 0;">Bloom Support</h3>
+            <span class="caption" style="color: var(--secondary);">● Online</span>
+          </div>
+          <div style="width: 44px;"></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+          <div style="display: flex; gap: 8px;">
+            <div class="avatar" style="width: 32px; height: 32px; font-size: 13px; flex-shrink: 0;">B</div>
+            <div style="background: var(--white); border-radius: 4px 16px 16px 16px; padding: 12px 16px; box-shadow: var(--shadow-sm); max-width: 75%;">
+              <p style="font-size: 13px; color: var(--text);">Hi Vimansa! How can we help you today? 🌸</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <div style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 16px 4px 16px 16px; padding: 12px 16px; max-width: 75%;">
+              <p style="font-size: 13px; color: white;">Hi! I have a question about my order #BLM-2025-0615</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <div class="avatar" style="width: 32px; height: 32px; font-size: 13px; flex-shrink: 0;">B</div>
+            <div style="background: var(--white); border-radius: 4px 16px 16px 16px; padding: 12px 16px; box-shadow: var(--shadow-sm); max-width: 75%;">
+              <p style="font-size: 13px; color: var(--text);">Of course! I can see your order is out for delivery. Is there anything specific you'd like to know?</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-bar" style="border-radius: var(--radius-md); padding: 12px 18px;">
+          <input type="text" placeholder="Type your message...">
+          <i class="fas fa-paper-plane" style="color: var(--primary); cursor: pointer;"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========== BOTTOM NAVIGATION ========== -->
+    <div class="bottom-nav" id="bottomNav">
+      <div class="nav-item active" data-screen="home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </div>
+      <div class="nav-item" data-screen="explore">
+        <i class="fas fa-search"></i>
+        <span>Explore</span>
+      </div>
+      <div class="nav-item" data-screen="orders">
+        <i class="fas fa-shopping-bag"></i>
+        <span>Orders</span>
+      </div>
+      <div class="nav-item" data-screen="wishlist">
+        <i class="fas fa-heart"></i>
+        <span>Wishlist</span>
+      </div>
+      <div class="nav-item" data-screen="profile">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var screenHistory = [];
+      var currentScreen = 'home';
+
+      var screens = {
+        home: document.getElementById('screen-home'),
+        explore: document.getElementById('screen-explore'),
+        search: document.getElementById('screen-search'),
+        filters: document.getElementById('screen-filters'),
+        detail: document.getElementById('screen-detail'),
+        customize: document.getElementById('screen-customize'),
+        delivery: document.getElementById('screen-delivery'),
+        summary: document.getElementById('screen-summary'),
+        confirmation: document.getElementById('screen-confirmation'),
+        tracking: document.getElementById('screen-tracking'),
+        orders: document.getElementById('screen-orders'),
+        wishlist: document.getElementById('screen-wishlist'),
+        profile: document.getElementById('screen-profile'),
+        notifications: document.getElementById('screen-notifications'),
+        addresses: document.getElementById('screen-addresses'),
+        'payment-methods': document.getElementById('screen-payment-methods'),
+        settings: document.getElementById('screen-settings'),
+        support: document.getElementById('screen-support'),
+        chat: document.getElementById('screen-chat')
+      };
+
+      var navItems = document.querySelectorAll('.nav-item');
+      var appScreen = document.getElementById('appScreen');
+
+      window.goTo = function(screenName) {
+        if (!screens[screenName]) return;
+        
+        if (currentScreen !== screenName) {
+          screenHistory.push(currentScreen);
+        }
+        
+        Object.keys(screens).forEach(function(key) {
+          if (screens[key]) screens[key].classList.remove('active-screen');
+        });
+        
+        if (screens[screenName]) {
+          screens[screenName].classList.add('active-screen');
+          currentScreen = screenName;
+        }
+        
+        var mainScreens = ['home', 'explore', 'orders', 'wishlist', 'profile'];
+        navItems.forEach(function(item) {
+          item.classList.remove('active');
+          if (item.getAttribute('data-screen') === screenName && mainScreens.includes(screenName)) {
+            item.classList.add('active');
+          }
+        });
+        
+        if (appScreen) appScreen.scrollTop = 0;
+      };
+
+      window.goBack = function() {
+        if (screenHistory.length > 0) {
+          var prev = screenHistory.pop();
+          goTo(prev);
+        } else {
+          goTo('home');
+        }
+      };
+
+      navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var screenName = this.getAttribute('data-screen');
+          if (screenName) {
+            screenHistory = [];
+            goTo(screenName);
+          }
+        });
+      });
+
+      window.showProductDetail = function(name, price, img) {
+        document.getElementById('detail-name').textContent = name;
+        document.getElementById('detail-price').textContent = '$' + price.toFixed(2);
+        document.getElementById('detail-img').src = img;
+        goTo('detail');
+      };
+
+      window.switchToOccasion = function(occasion) {
+        goTo('explore');
+      };
+
+      window.selectSize = function(el) {
+        var parent = el.parentElement;
+        parent.querySelectorAll('.size-option').forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        el.classList.add('selected');
+      };
+
+      window.selectColor = function(el) {
+        var parent = el.parentElement;
+        parent.querySelectorAll('.color-swatch').forEach(function(sw) {
+          sw.classList.remove('selected');
+        });
+        el.classList.add('selected');
+      };
+
+      window.toggleAddon = function(el) {
+        var check = el.querySelector('.addon-check');
+        check.classList.toggle('checked');
+      };
+
+      window.toggleHeart = function(event) {
+        event.stopPropagation();
+        var heart = event.currentTarget;
+        var icon = heart.querySelector('i');
+        if (icon.classList.contains('fas')) {
+          icon.classList.remove('fas');
+          icon.classList.add('far');
+          heart.style.color = 'var(--text-muted)';
+        } else {
+          icon.classList.remove('far');
+          icon.classList.add('fas');
+          heart.style.color = 'var(--primary)';
+        }
+      };
+
+      window.toggleSwitch = function(el) {
+        var toggle = el.querySelector('.toggle');
+        if (toggle) toggle.classList.toggle('on');
+      };
+
+      document.querySelectorAll('.occasion-chip').forEach(function(chip) {
+        chip.addEventListener('click', function(e) {
+          if (this.closest('.occasion-row') || this.parentElement.classList.contains('flex')) {
+            var parent = this.parentElement;
+            var siblings = parent.querySelectorAll('.occasion-chip');
+            if (siblings.length > 0 && !this.classList.contains('no-toggle')) {
+              siblings.forEach(function(c) { c.classList.remove('active'); });
+              this.classList.add('active');
+            }
+          }
+        });
+      });
+
+      document.querySelectorAll('.filter-chip').forEach(function(chip) {
+        chip.addEventListener('click', function() {
+          var parent = this.parentElement;
+          parent.querySelectorAll('.filter-chip').forEach(function(c) {
+            c.classList.remove('active');
+          });
+          this.classList.add('active');
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
