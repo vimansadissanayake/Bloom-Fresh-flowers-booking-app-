@@ -77,6 +77,7 @@
       color: var(--text);
       flex-shrink: 0;
       background: var(--bg);
+      z-index: 20;
     }
 
     .status-bar .time { font-weight: 700; }
@@ -179,12 +180,14 @@
       background: var(--primary-soft);
       border-color: var(--primary);
     }
-    .btn-soft {
-      background: var(--primary-soft);
-      color: var(--primary);
-      border: none;
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
-    .btn-soft:hover { background: var(--primary-light); }
+    .btn-ghost:hover {
+      color: var(--primary);
+    }
     .btn-sm { padding: 10px 18px; font-size: 13px; }
     .btn-block { width: 100%; }
     .btn-icon {
@@ -618,6 +621,415 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Splash & Welcome & Onboarding — full height styles */
+    .full-screen {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding: 0 !important;
+    }
+
+    /* SPLASH */
+    .splash-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 700px;
+      text-align: center;
+      padding: 40px 30px;
+      background: linear-gradient(160deg, #FDF8F4 0%, #FCE9E3 50%, #F5D0DA 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .splash-screen::before {
+      content: '🌸';
+      position: absolute;
+      top: -30px;
+      right: -20px;
+      font-size: 180px;
+      opacity: 0.08;
+      transform: rotate(-20deg);
+    }
+
+    .splash-screen::after {
+      content: '🌿';
+      position: absolute;
+      bottom: -30px;
+      left: -20px;
+      font-size: 180px;
+      opacity: 0.08;
+      transform: rotate(15deg);
+    }
+
+    .splash-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 56px;
+      margin-bottom: 32px;
+      box-shadow: 0 20px 50px rgba(200, 75, 110, 0.35);
+      animation: bloomPulse 2.5s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes bloomPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 20px 50px rgba(200, 75, 110, 0.35); }
+      50% { transform: scale(1.05); box-shadow: 0 25px 60px rgba(200, 75, 110, 0.45); }
+    }
+
+    .splash-screen h1 {
+      font-size: 52px;
+      color: var(--primary);
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .splash-tagline {
+      font-size: 15px;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 40px;
+    }
+
+    .splash-dots {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .splash-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      animation: dotPulse 1.4s ease-in-out infinite;
+    }
+
+    .splash-dots span:nth-child(1) { animation-delay: 0s; }
+    .splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1.2); background: var(--primary); }
+    }
+
+    /* WELCOME */
+    .welcome-screen {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 700px;
+      padding: 30px 28px;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .welcome-illustration {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .welcome-illustration .flower-circle {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FCE9E3, #F5D0DA);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 30px 70px rgba(200, 75, 110, 0.2);
+    }
+
+    .welcome-illustration .flower-circle img {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-illustration .floating-badge {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .welcome-illustration .floating-badge.badge-1 {
+      top: 20px;
+      left: 0;
+      animation: floatY 3s ease-in-out infinite;
+    }
+
+    .welcome-illustration .floating-badge.badge-2 {
+      bottom: 40px;
+      right: 0;
+      animation: floatY 3s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .welcome-illustration .floating-badge i {
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    .welcome-content h1 {
+      font-size: 32px;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .welcome-content h1 .highlight {
+      color: var(--primary);
+      font-style: italic;
+    }
+
+    .welcome-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .welcome-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-actions .btn-ghost {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 12px;
+    }
+
+    .welcome-footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding-bottom: 10px;
+    }
+
+    /* ONBOARDING */
+    .onboarding-screen {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 700px;
+      padding: 30px 28px 24px;
+      background: var(--bg);
+    }
+
+    .onboarding-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .onboarding-header .skip {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .onboarding-header .skip:hover { color: var(--primary); }
+
+    .onboarding-slide {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .onboarding-visual {
+      width: 260px;
+      height: 260px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(200, 75, 110, 0.15);
+    }
+
+    .onboarding-visual.v1 {
+      background: linear-gradient(135deg, #FCE9E3, #F5D0DA);
+    }
+
+    .onboarding-visual.v2 {
+      background: linear-gradient(135deg, #D4E8D9, #A8C9B0);
+    }
+
+    .onboarding-visual.v3 {
+      background: linear-gradient(135deg, #FCE9C4, #F4D79C);
+    }
+
+    .onboarding-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .onboarding-visual .visual-icon {
+      font-size: 100px;
+      color: var(--primary);
+      opacity: 0.6;
+    }
+
+    .onboarding-screen h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+      line-height: 1.25;
+      max-width: 300px;
+    }
+
+    .onboarding-screen .onboarding-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 300px;
+      margin-bottom: 32px;
+    }
+
+    .onboarding-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .onboarding-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .onboarding-dots span.active {
+      width: 28px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+
+    .onboarding-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .onboarding-actions .btn-back {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      color: var(--text-secondary);
+      padding: 15px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .onboarding-actions .btn-back:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .onboarding-actions .btn-next {
+      flex: 1;
+    }
+
+    /* WELCOME SPLIT */
+    .welcome-split {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 700px;
+      background: var(--bg);
+    }
+
+    .welcome-split-top {
+      flex: 1;
+      background: linear-gradient(160deg, #FCE9E3 0%, #F5D0DA 100%);
+      border-radius: 0 0 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 40px 30px;
+      min-height: 380px;
+    }
+
+    .welcome-split-top::before {
+      content: '🌸';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 140px;
+      opacity: 0.1;
+    }
+
+    .welcome-split-top img {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 20px 50px rgba(200, 75, 110, 0.3);
+      z-index: 1;
+    }
+
+    .welcome-split-bottom {
+      padding: 32px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
     .hero-banner {
       background: linear-gradient(135deg, #FCE9E3 0%, #F5D0DA 50%, #E8C4D0 100%);
       border-radius: var(--radius-lg);
@@ -987,10 +1399,19 @@
     .support-option .sup-title { font-weight: 700; font-size: 14px; color: var(--text); }
     .support-option .sup-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .support-option .sup-chevron { margin-left: auto; color: var(--gray-300); font-size: 12px; }
+
+    /* Hide bottom nav on splash/welcome/onboarding */
+    .phone-frame.intro-mode .bottom-nav {
+      display: none;
+    }
+
+    .phone-frame.intro-mode .app-screen {
+      padding: 0;
+    }
   </style>
 </head>
 <body>
-  <div class="phone-frame">
+  <div class="phone-frame intro-mode" id="phoneFrame">
     <div class="status-bar">
       <span class="time">9:41</span>
       <div class="icons">
@@ -1002,8 +1423,103 @@
 
     <div class="app-screen" id="appScreen">
 
-      <!-- ==================== HOME ==================== -->
-      <div id="screen-home" class="screen-content active-screen">
+      <!-- ==================== 01 SPLASH ==================== -->
+      <div id="screen-splash" class="screen-content active-screen">
+        <div class="full-screen splash-screen" onclick="goTo('welcome')" style="cursor: pointer;">
+          <div class="splash-logo">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h1>Bloom</h1>
+          <p class="splash-tagline">Fresh · Thoughtful · Delivered</p>
+          <div class="splash-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p class="caption" style="position: relative; z-index: 1;">Tap anywhere to continue</p>
+        </div>
+      </div>
+
+      <!-- ==================== 02 WELCOME ==================== -->
+      <div id="screen-welcome" class="screen-content">
+        <div class="full-screen welcome-screen">
+          <div class="welcome-illustration">
+            <div class="flower-circle">
+              <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop" alt="Blooms" onerror="this.parentElement.innerHTML='<div style=\'font-size:100px;color:var(--primary);\'><i class=\'fas fa-seedling\'></i></div>'">
+            </div>
+            <div class="floating-badge badge-1">
+              <i class="fas fa-star"></i>
+              <div>
+                <div>4.9 rating</div>
+                <div style="font-size:10px;color:var(--text-muted);font-weight:500;">2k+ reviews</div>
+              </div>
+            </div>
+            <div class="floating-badge badge-2">
+              <i class="fas fa-truck"></i>
+              <div>
+                <div>Same day</div>
+                <div style="font-size:10px;color:var(--text-muted);font-weight:500;">Fast delivery</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="welcome-content">
+            <h1>Send <span class="highlight">beautiful</span> blooms, without the fuss.</h1>
+            <p>Discover, customize, and deliver fresh flowers for every occasion — birthdays, anniversaries, or just because.</p>
+          </div>
+
+          <div class="welcome-actions">
+            <button class="btn btn-primary btn-block" onclick="goTo('onboarding')">
+              Get started <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="btn btn-ghost btn-block" onclick="goTo('home')">
+              I already have an account
+            </button>
+          </div>
+
+          <div class="welcome-footer">
+            By continuing you agree to our <span style="color:var(--primary);font-weight:600;">Terms</span> & <span style="color:var(--primary);font-weight:600;">Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 03 ONBOARDING ==================== -->
+      <div id="screen-onboarding" class="screen-content">
+        <div class="full-screen onboarding-screen">
+          <div class="onboarding-header">
+            <button class="btn-icon" onclick="goTo('welcome')">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <span class="skip" onclick="goTo('home')">Skip</span>
+          </div>
+
+          <div class="onboarding-slide" id="onboardingSlide">
+            <div class="onboarding-visual v1" id="onboardingVisual">
+              <img id="onboardingImg" src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500&h=500&fit=crop" alt="Discover flowers" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'visual-icon\'><i class=\'fas fa-search\'></i></div>'">
+            </div>
+            <h2 id="onboardingTitle">Discover blooms for every moment</h2>
+            <p class="onboarding-desc" id="onboardingDesc">Browse curated bouquets by occasion, flower type, or seasonal collections — all in one place.</p>
+          </div>
+
+          <div class="onboarding-dots" id="onboardingDots">
+            <span class="active" onclick="setOnboardingSlide(0)"></span>
+            <span onclick="setOnboardingSlide(1)"></span>
+            <span onclick="setOnboardingSlide(2)"></span>
+          </div>
+
+          <div class="onboarding-actions">
+            <button class="btn-back" id="onboardingBack" onclick="prevOnboardingSlide()" style="display: none;">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button class="btn btn-primary btn-next" id="onboardingNext" onclick="nextOnboardingSlide()">
+              Next <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 04 HOME ==================== -->
+      <div id="screen-home" class="screen-content">
         <div class="flex-between mb-20">
           <div>
             <p class="caption" style="margin-bottom: 2px;">Good morning ✨</p>
@@ -1895,7 +2411,7 @@
         </div>
 
         <div class="profile-menu mb-24">
-          <div class="profile-menu-item" onclick="goTo('home')">
+          <div class="profile-menu-item" onclick="goTo('splash')">
             <i class="fas fa-sign-out-alt"></i>
             <span class="menu-text">Log out</span>
           </div>
@@ -2285,9 +2801,37 @@
   <script>
     (function() {
       var screenHistory = [];
-      var currentScreen = 'home';
+      var currentScreen = 'splash';
+      var onboardingIndex = 0;
+
+      var onboardingSlides = [
+        {
+          visual: 'v1',
+          img: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500&h=500&fit=crop',
+          icon: 'fas fa-search',
+          title: 'Discover blooms for every moment',
+          desc: 'Browse curated bouquets by occasion, flower type, or seasonal collections — all in one place.'
+        },
+        {
+          visual: 'v2',
+          img: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=500&h=500&fit=crop',
+          icon: 'fas fa-paint-brush',
+          title: 'Make it personal',
+          desc: 'Choose sizes, colors, add-ons, and a heartfelt message. Every bouquet is uniquely yours.'
+        },
+        {
+          visual: 'v3',
+          img: 'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=500&h=500&fit=crop',
+          icon: 'fas fa-truck',
+          title: 'Delivered fresh, on time',
+          desc: 'Pick your date and time slot. Track every step from our hands to their door.'
+        }
+      ];
 
       var screens = {
+        splash: document.getElementById('screen-splash'),
+        welcome: document.getElementById('screen-welcome'),
+        onboarding: document.getElementById('screen-onboarding'),
         home: document.getElementById('screen-home'),
         explore: document.getElementById('screen-explore'),
         search: document.getElementById('screen-search'),
@@ -2311,6 +2855,10 @@
 
       var navItems = document.querySelectorAll('.nav-item');
       var appScreen = document.getElementById('appScreen');
+      var phoneFrame = document.getElementById('phoneFrame');
+
+      // Screens that should hide bottom nav (intro screens)
+      var introScreens = ['splash', 'welcome', 'onboarding'];
 
       window.goTo = function(screenName) {
         if (!screens[screenName]) return;
@@ -2326,6 +2874,13 @@
         if (screens[screenName]) {
           screens[screenName].classList.add('active-screen');
           currentScreen = screenName;
+        }
+
+        // Toggle intro mode (hide bottom nav)
+        if (introScreens.includes(screenName)) {
+          phoneFrame.classList.add('intro-mode');
+        } else {
+          phoneFrame.classList.remove('intro-mode');
         }
         
         var mainScreens = ['home', 'explore', 'orders', 'wishlist', 'profile'];
@@ -2348,6 +2903,50 @@
         }
       };
 
+      // ==== ONBOARDING LOGIC ====
+      window.setOnboardingSlide = function(index) {
+        if (index < 0 || index >= onboardingSlides.length) return;
+        onboardingIndex = index;
+        var slide = onboardingSlides[index];
+        
+        document.getElementById('onboardingVisual').className = 'onboarding-visual ' + slide.visual;
+        document.getElementById('onboardingTitle').textContent = slide.title;
+        document.getElementById('onboardingDesc').textContent = slide.desc;
+        
+        // Update dots
+        var dots = document.getElementById('onboardingDots').children;
+        for (var i = 0; i < dots.length; i++) {
+          dots[i].classList.remove('active');
+        }
+        dots[index].classList.add('active');
+        
+        // Show/hide back button
+        document.getElementById('onboardingBack').style.display = index === 0 ? 'none' : 'flex';
+        
+        // Change next button text
+        var nextBtn = document.getElementById('onboardingNext');
+        if (index === onboardingSlides.length - 1) {
+          nextBtn.innerHTML = 'Get started <i class="fas fa-arrow-right"></i>';
+        } else {
+          nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+        }
+      };
+
+      window.nextOnboardingSlide = function() {
+        if (onboardingIndex < onboardingSlides.length - 1) {
+          setOnboardingSlide(onboardingIndex + 1);
+        } else {
+          goTo('home');
+        }
+      };
+
+      window.prevOnboardingSlide = function() {
+        if (onboardingIndex > 0) {
+          setOnboardingSlide(onboardingIndex - 1);
+        }
+      };
+
+      // ==== NAV CLICKS ====
       navItems.forEach(function(item) {
         item.addEventListener('click', function() {
           var screenName = this.getAttribute('data-screen');
@@ -2432,6 +3031,9 @@
           this.classList.add('active');
         });
       });
+
+      // Initialize splash on load
+      phoneFrame.classList.add('intro-mode');
 
     })();
   </script>
